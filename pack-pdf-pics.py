@@ -5,7 +5,7 @@ from csv import writer
 from fractions import Fraction
 from io import BytesIO
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile
 from PIL import Image, UnidentifiedImageError
 import pymupdf
 from rectpack import newPacker
@@ -158,6 +158,8 @@ def main():
     lost_pixels_total = 0
     rid = 0
     for image_contender_filename in image_contenders_filenames:
+        if not isfile(image_contender_filename):
+            continue
         try:
             image = Image.open(image_contender_filename)
         except UnidentifiedImageError:
